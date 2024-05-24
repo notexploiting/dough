@@ -12,6 +12,9 @@ The application allows users to track their expenses and incomes with various de
 - Add, track, remove expenses and incomes
 - SQLite database integration to store and manage records
 
+## Getting Started
+Coming soon!
+
 ## Dependencies
 - Qt6 (Core, SQL modules)
 - CMake (version 3.5 or higher)
