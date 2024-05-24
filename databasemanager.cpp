@@ -69,3 +69,8 @@ bool DatabaseManager::createTables()
 
     return success;
 }
+
+QSqlDatabase& DatabaseManager::getDatabase()
+{
+    return db;
+}

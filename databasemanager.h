@@ -15,6 +15,8 @@ public:
     void closeDatabase();
     bool createTables();
 
+    QSqlDatabase& getDatabase();
+
 private:
     QSqlDatabase db;
 };
