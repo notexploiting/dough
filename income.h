@@ -8,7 +8,7 @@
 class Income
 {
 public:
-    Income(const QDate& date, const QString& title, double amount, const QString& description = "");
+    Income(const QDate &date, const QString &title, double amount, const QString &description = "");
 
     bool addToDatabase(QSqlDatabase &db);
 

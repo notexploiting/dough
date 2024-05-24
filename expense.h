@@ -8,7 +8,7 @@
 class Expense
 {
 public:
-    Expense(const QString& category, const QDate& date, const QString& title, double amount, const QString& description = "");
+    Expense(const QString &category, const QDate &date, const QString &title, double amount, const QString &description = "");
 
     bool addToDatabase(QSqlDatabase &db);
 
