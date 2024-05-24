@@ -1,5 +1,6 @@
 #include "dough.h"
 #include "./ui_dough.h"
+#include <QDebug>
 
 dough::dough(QWidget *parent)
     : QWidget(parent)
@@ -12,3 +13,5 @@ dough::~dough()
 {
     delete ui;
 }
+
+
