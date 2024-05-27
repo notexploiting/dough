@@ -1,11 +1,11 @@
 #ifndef DOUGH_H
 #define DOUGH_H
 
+#include "expensewidget.h"
 #include "qpushbutton.h"
 #include <QWidget>
 #include <QDate>
 #include <QString>
-#include <vector>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -24,10 +24,12 @@ public:
 private slots:
 
     void on_pushButton_expense_clicked();
+    void onExpenseWidgetClosed(int result);
 
 private:
     Ui::dough *ui;
     QPushButton *pustButton_expense;
+    ExpenseWidget *expenseWidget; // Declare the ExpenseWidget pointer here
 };
 
 #endif // DOUGH_H

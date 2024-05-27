@@ -1,43 +1,27 @@
 #include "expensewidget.h"
 
 ExpenseWidget::ExpenseWidget(QWidget *parent)
-    : QWidget{parent}
+    : QDialog{parent}
 {
     // Set the popup size
-    resize(300, 200);
+    setFixedSize(400, 300);
 
-    // Create and configure labels, input fields, and button(s)
-    QList<QWidget*>widgetsList;
+    // Initialize and configure labels, input fields, and button(s)
+    label_category = new QLabel("Category", this);
+    lineEdit_category = new QLineEdit(this);
 
-    QLabel *label_category = new QLabel(this);
-    label_category->setText("Category");
-    QLineEdit *lineEdit_category = new QLineEdit(this);
-    widgetsList.append(label_category);
-    widgetsList.append(lineEdit_category);
+    label_date = new QLabel("Date", this);
+    dateTimeEdit_date = new QDateTimeEdit(this);
+    dateTimeEdit_date->setDateTime(QDateTime::currentDateTime());
 
-    QLabel *label_date = new QLabel(this);
-    label_date->setText("Date");
-    QDateTimeEdit *dateTimeEdit_date = new QDateTimeEdit(this);
-    widgetsList.append(label_date);
-    widgetsList.append(dateTimeEdit_date);
+    label_title = new QLabel("Title", this);
+    lineEdit_title = new QLineEdit(this);
 
-    QLabel *label_title = new QLabel(this);
-    label_title->setText("Title");
-    QLineEdit *lineEdit_title = new QLineEdit(this);
-    widgetsList.append(label_title);
-    widgetsList.append(lineEdit_title);
+    label_amount = new QLabel("Amount", this);
+    lineEdit_amount = new QLineEdit(this);
 
-    QLabel *label_amount = new QLabel(this);
-    label_amount->setText("Amount");
-    QLineEdit *lineEdit_amount = new QLineEdit(this);
-    widgetsList.append(label_amount);
-    widgetsList.append(lineEdit_amount);
-
-    QLabel *label_description = new QLabel(this);
-    label_description->setText("Description");
-    QLineEdit *lineEdit_description = new QLineEdit(this);
-    widgetsList.append(label_description);
-    widgetsList.append(lineEdit_description);
+    label_description = new QLabel("Description", this);
+    lineEdit_description = new QLineEdit(this);
 
     pushButton_Submit = new QPushButton("Submit", this);
 
@@ -45,11 +29,20 @@ ExpenseWidget::ExpenseWidget(QWidget *parent)
     connect(pushButton_Submit, &QPushButton::clicked, this, &ExpenseWidget::on_pushButton_Submit_clicked);
 
     // Create and set layout
-    QVBoxLayout *layout = new QVBoxLayout();
-    for (QWidget *widget : widgetsList) {
-        layout->addWidget(widget);
-    }
-    setLayout(layout); // Set the layout to the ExpenseWidget, ensuring proper memory management
+    QVBoxLayout *layout = new QVBoxLayout(this);
+    layout->addWidget(label_category);
+    layout->addWidget(lineEdit_category);
+    layout->addWidget(label_date);
+    layout->addWidget(dateTimeEdit_date);
+    layout->addWidget(label_title);
+    layout->addWidget(lineEdit_title);
+    layout->addWidget(label_amount);
+    layout->addWidget(lineEdit_amount);
+    layout->addWidget(label_description);
+    layout->addWidget(lineEdit_description);
+    layout->addWidget(pushButton_Submit);
+
+    setLayout(layout); // Set the layout to the ExpenseWidget
 }
 
 ExpenseWidget::~ExpenseWidget()
@@ -59,5 +52,16 @@ ExpenseWidget::~ExpenseWidget()
 void ExpenseWidget::on_pushButton_Submit_clicked()
 {
     // Handle submit button click (e.g., retrieve input data)
-    close();
+    QString title = lineEdit_title->text();
+    // Close the dialog and return QDialog::Accepted
+    if (!title.isEmpty()) {
+        // QMessageBox::information(this, "Popup Accepted", "The popup was accepted.");
+        // QMessageBox msgBox;
+        // msgBox.setText("The input was accepted.");
+        // msgBox.exec();
+        dateTimeEdit_date->setDateTime(QDateTime::currentDateTime());
+        accept(); // Close the dialog and return QDialog::Accepted
+    } else {
+        QMessageBox::warning(this, "Input Error", "The title field cannot be empty.");
+    }
 }

@@ -2,14 +2,16 @@
 #define EXPENSEWIDGET_H
 
 #include <QWidget>
+#include <QDialog>
 #include <QLineEdit>
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QDateTimeEdit>
 #include <QLabel>
 #include <QList>
+#include <QMessageBox>
 
-class ExpenseWidget : public QWidget
+class ExpenseWidget : public QDialog
 {
     Q_OBJECT
 public:

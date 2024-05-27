@@ -49,39 +49,6 @@
     <string>Add Expense</string>
    </property>
   </widget>
-  <widget class="QDateEdit" name="dateEdit">
-   <property name="geometry">
-    <rect>
-     <x>400</x>
-     <y>300</y>
-     <width>110</width>
-     <height>29</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QDateTimeEdit" name="dateTimeEdit">
-   <property name="geometry">
-    <rect>
-     <x>330</x>
-     <y>360</y>
-     <width>194</width>
-     <height>29</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>300</x>
-     <y>480</y>
-     <width>63</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>TextLabel</string>
-   </property>
-  </widget>
  </widget>
  <resources/>
  <connections/>
