@@ -1,6 +1,7 @@
 #ifndef DOUGH_H
 #define DOUGH_H
 
+#include "qpushbutton.h"
 #include <QWidget>
 #include <QDate>
 #include <QString>
@@ -22,8 +23,11 @@ public:
 
 private slots:
 
+    void on_pushButton_expense_clicked();
+
 private:
     Ui::dough *ui;
+    QPushButton *pustButton_expense;
 };
 
 #endif // DOUGH_H
