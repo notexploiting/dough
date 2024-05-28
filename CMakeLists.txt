@@ -33,6 +33,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         expense.cpp
         income.cpp
         expensewidget.h expensewidget.cpp
+        incomewidget.h incomewidget.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET dough APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
