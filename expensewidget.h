@@ -10,6 +10,7 @@
 #include <QLabel>
 #include <QList>
 #include <QMessageBox>
+#include <QComboBox>
 
 class ExpenseWidget : public QDialog
 {
@@ -39,6 +40,8 @@ private:
     QLineEdit *lineEdit_description;
 
     QPushButton *pushButton_Submit;
+
+    QComboBox *comboBox_category;
 
 signals:
 };

@@ -1,4 +1,6 @@
 #include "expensewidget.h"
+#include "expense.h"
+#include "databasemanager.h"
 
 ExpenseWidget::ExpenseWidget(QWidget *parent)
     : QDialog{parent}
@@ -8,7 +10,9 @@ ExpenseWidget::ExpenseWidget(QWidget *parent)
 
     // Initialize and configure labels, input fields, and button(s)
     label_category = new QLabel("Category", this);
-    lineEdit_category = new QLineEdit(this);
+    comboBox_category = new QComboBox(this);
+    QStringList categories = {"Food", "Transport", "Entertainment", "Utilities", "Others"};
+    comboBox_category->addItems(categories);
 
     label_date = new QLabel("Date", this);
     dateTimeEdit_date = new QDateTimeEdit(this);
@@ -19,6 +23,7 @@ ExpenseWidget::ExpenseWidget(QWidget *parent)
 
     label_amount = new QLabel("Amount", this);
     lineEdit_amount = new QLineEdit(this);
+    lineEdit_amount->setValidator(new QDoubleValidator(0, 1000000, 2, this)); // Add validator for amount
 
     label_description = new QLabel("Description", this);
     lineEdit_description = new QLineEdit(this);
@@ -31,7 +36,7 @@ ExpenseWidget::ExpenseWidget(QWidget *parent)
     // Create and set layout
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addWidget(label_category);
-    layout->addWidget(lineEdit_category);
+    layout->addWidget(comboBox_category);
     layout->addWidget(label_date);
     layout->addWidget(dateTimeEdit_date);
     layout->addWidget(label_title);
@@ -51,17 +56,47 @@ ExpenseWidget::~ExpenseWidget()
 
 void ExpenseWidget::on_pushButton_Submit_clicked()
 {
+    qDebug() << "Submit button clicked";
+
     // Handle submit button click (e.g., retrieve input data)
-    QString title = lineEdit_title->text();
     // Close the dialog and return QDialog::Accepted
-    if (!title.isEmpty()) {
-        // QMessageBox::information(this, "Popup Accepted", "The popup was accepted.");
-        // QMessageBox msgBox;
-        // msgBox.setText("The input was accepted.");
-        // msgBox.exec();
-        dateTimeEdit_date->setDateTime(QDateTime::currentDateTime());
+    // QMessageBox::information(this, "Popup Accepted", "The popup was accepted.");
+    // QMessageBox msgBox;
+    // msgBox.setText("The input was accepted.");
+    // msgBox.exec();
+
+    // dateTimeEdit_date->setDateTime(QDateTime::currentDateTime());
+
+    //Expense(const QString &category, const QDate &date, const QString &title, double amount, const QString &description = "");
+    QString category = comboBox_category->currentText();
+    QDate date = dateTimeEdit_date->date();
+    QString title = lineEdit_title->text();
+    double amount = lineEdit_amount->text().toDouble();
+    QString description = lineEdit_description->text();
+
+    // Validate inputs
+    if (title.isEmpty() || amount == 0.0 || !lineEdit_amount->hasAcceptableInput()) {
+        QMessageBox::warning(this, "Input Error", "Please fill in all required fields with valid data.");
+        return;
+    }
+
+    Expense expense = Expense(category, date, title, amount, description);
+
+    // Get the database instance
+    DatabaseManager& dbManager = DatabaseManager::getInstance();
+    QSqlDatabase& db = dbManager.getDatabase();
+
+    // Ensure the database is open
+    if (!db.isOpen()) {
+        QMessageBox::critical(this, "Database Error", "Database is not open. Please try again.");
+        return;
+    }
+
+    // Add the expense to the database
+    if (expense.addToDatabase(db)) {
+        QMessageBox::information(this, "Success", "Expense added successfully.");
         accept(); // Close the dialog and return QDialog::Accepted
     } else {
-        QMessageBox::warning(this, "Input Error", "The title field cannot be empty.");
+        QMessageBox::critical(this, "Database Error", "Failed to add expense to the database.");
     }
 }
