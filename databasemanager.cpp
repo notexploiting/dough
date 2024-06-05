@@ -70,7 +70,66 @@ bool DatabaseManager::createTables()
     return success;
 }
 
+bool DatabaseManager::clearExpenses()
+{
+    QSqlQuery query;
+    if (query.exec("DELETE FROM expenses")) {
+        qDebug() << "All expenses have been cleared.";
+        return true;
+    } else {
+        qDebug() << "Error clearing expenses:" << query.lastError();
+        return false;
+    }
+}
+
+bool DatabaseManager::clearIncomes()
+{
+    QSqlQuery query;
+    if (query.exec("DELETE FROM incomes")) {
+        qDebug() << "All incomes have been cleared.";
+        return true;
+    } else {
+        qDebug() << "Error clearing incomes:" << query.lastError();
+        return false;
+    }
+}
+
 QSqlDatabase& DatabaseManager::getDatabase()
 {
     return db;
+}
+
+QSqlQueryModel *DatabaseManager::getExpensesModel()
+{
+    QSqlQueryModel *model = new QSqlQueryModel();
+    model->setQuery("SELECT category, date, title, amount, description FROM expenses ORDER BY category", db);
+
+    // Set headers
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("Category"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("Date"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("Title"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("Amount"));
+    model->setHeaderData(4, Qt::Horizontal, QObject::tr("Description"));
+
+    return model;
+}
+
+QSqlQueryModel *DatabaseManager::getIncomesModel()
+{
+    QSqlQueryModel *model = new QSqlQueryModel();
+    model->setQuery("SELECT date, title, amount, description FROM incomes", db);
+
+    // Set headers
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("Date"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("Title"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("Amount"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("Description"));
+
+    return model;
+}
+
+DatabaseManager& DatabaseManager::getInstance()
+{
+    static DatabaseManager instance; // Singleton instance
+    return instance;
 }
