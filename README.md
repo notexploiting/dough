@@ -12,6 +12,13 @@ The application allows users to track their expenses and incomes with various de
 - Add, track, remove expenses and incomes
 - SQLite database integration to store and manage records
 
+## Planned Features
+- User authentication
+- Visualizations and Analytics
+- Export data to CSV or .db
+- Import data from CSV or .db
+- Multi currency support
+
 ## Getting Started
 Coming soon!
 
