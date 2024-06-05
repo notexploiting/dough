@@ -1,4 +1,6 @@
 #include "incomewidget.h"
+#include "income.h"
+#include "databasemanager.h"
 
 IncomeWidget::IncomeWidget(QWidget *parent)
     : QDialog{parent}
@@ -46,17 +48,32 @@ IncomeWidget::~IncomeWidget()
 
 void IncomeWidget::on_pushButton_Submit_clicked()
 {
+    qDebug() << "Submit button clicked";
+    
     // Handle submit button click (e.g., retrieve input data)
-    QString title = lineEdit_title->text();
     // Close the dialog and return QDialog::Accepted
-    if (!title.isEmpty()) {
-        // QMessageBox::information(this, "Popup Accepted", "The popup was accepted.");
-        // QMessageBox msgBox;
-        // msgBox.setText("The input was accepted.");
-        // msgBox.exec();
-        dateTimeEdit_date->setDateTime(QDateTime::currentDateTime());
+    QDate date = dateTimeEdit_date->date();
+    QString title = lineEdit_title->text();
+    double amount = lineEdit_amount->text().toDouble();
+    QString description = lineEdit_description->text();
+
+    Income income = Income(date, title, amount, description);
+
+    // Get the database instance
+    DatabaseManager& dbManager = DatabaseManager::getInstance();
+    QSqlDatabase& db = dbManager.getDatabase();
+
+    // Ensure the database is open
+    if (!db.isOpen()) {
+        QMessageBox::critical(this, "Database Error", "Database is not open. Please try again.");
+        return;
+    }
+
+    // Add the expense to the database
+    if (income.addToDatabase(db)) {
+        QMessageBox::information(this, "Success", "Income added successfully.");
         accept(); // Close the dialog and return QDialog::Accepted
     } else {
-        QMessageBox::warning(this, "Input Error", "The title field cannot be empty.");
+        QMessageBox::critical(this, "Database Error", "Failed to add income to the database.");
     }
 }
