@@ -3,7 +3,6 @@
 
 #include "expensewidget.h"
 #include "incomewidget.h"
-#include "qlistview.h"
 #include "qpushbutton.h"
 #include "qtableview.h"
 #include <QWidget>
@@ -36,8 +35,18 @@ private slots:
     void on_tableView_expenses_activated(const QModelIndex &index);
     void on_tableView_incomes_activated(const QModelIndex &index);
 
+    void showHomePage();
+    void showExpensePage();
+    void showIncomePage();
+    void showReportPage();
+
 private:
     Ui::dough *ui;
+
+    QWidget *widget_home;
+    QWidget *widget_expenses;
+    QWidget *widget_incomes;
+    QWidget *widget_reports;
 
     QPushButton *pushButton_expense;
     QPushButton *pushButton_income;

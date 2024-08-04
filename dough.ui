@@ -6,58 +6,145 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1000</width>
+    <height>800</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>dough</string>
   </property>
-  <widget class="QPushButton" name="pushButton_income">
+  <widget class="QStackedWidget" name="stackedWidget">
    <property name="geometry">
     <rect>
-     <x>480</x>
-     <y>140</y>
+     <x>140</x>
+     <y>20</y>
+     <width>571</width>
+     <height>341</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>2</number>
+   </property>
+   <widget class="QWidget" name="widget_home">
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>160</y>
+       <width>49</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Home</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="widget_incomes">
+    <widget class="QTableView" name="tableView_incomes">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>50</y>
+       <width>256</width>
+       <height>192</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_income">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>90</y>
+       <width>101</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Add Income</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="widget_report">
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>140</y>
+       <width>49</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Report</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="widget_expenses">
+    <widget class="QTableView" name="tableView_expenses">
+     <property name="geometry">
+      <rect>
+       <x>-60</x>
+       <y>-10</y>
+       <width>256</width>
+       <height>192</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_expense">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>50</y>
+       <width>101</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Add Expense</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
      <width>101</width>
-     <height>29</height>
+     <height>231</height>
     </rect>
    </property>
-   <property name="text">
-    <string>Add Income</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_expense">
-   <property name="geometry">
-    <rect>
-     <x>160</x>
-     <y>140</y>
-     <width>101</width>
-     <height>29</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Add Expense</string>
-   </property>
-  </widget>
-  <widget class="QTableView" name="tableView_expenses">
-   <property name="geometry">
-    <rect>
-     <x>90</x>
-     <y>200</y>
-     <width>256</width>
-     <height>192</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QTableView" name="tableView_incomes">
-   <property name="geometry">
-    <rect>
-     <x>400</x>
-     <y>200</y>
-     <width>256</width>
-     <height>192</height>
-    </rect>
-   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QPushButton" name="pushButton_homepage">
+      <property name="text">
+       <string>Home</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_expensepage">
+      <property name="text">
+       <string>Expenses</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_incomepage">
+      <property name="text">
+       <string>Incomes</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_reportpage">
+      <property name="text">
+       <string>Reports</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>

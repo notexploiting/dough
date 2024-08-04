@@ -13,8 +13,18 @@ dough::dough(QWidget *parent)
     , incomeWidget(nullptr) // Initialize the pointer to nullptr
 {
     ui->setupUi(this);
+
+    widget_home = ui->widget_home;
+    widget_expenses = ui->widget_expenses;
+    widget_incomes = ui->widget_incomes;
+    widget_reports = ui->widget_report;
+
     connect(ui->pushButton_expense, &QPushButton::clicked, this, &dough::on_pushButton_expense_clicked);
     connect(ui->pushButton_income, &QPushButton::clicked, this, &dough::on_pushButton_income_clicked);
+    connect(ui->pushButton_homepage, &QPushButton::clicked, this, &dough::showHomePage);
+    connect(ui->pushButton_expensepage, &QPushButton::clicked, this, &dough::showExpensePage);
+    connect(ui->pushButton_incomepage, &QPushButton::clicked, this, &dough::showIncomePage);
+    connect(ui->pushButton_reportpage, &QPushButton::clicked, this, &dough::showReportPage);
 
     // Assign tableView_expenses and tableView_incomes from UI
     tableView_expenses = ui->tableView_expenses;
@@ -25,6 +35,8 @@ dough::dough(QWidget *parent)
     // tableView_incomes->setModel(dbManager.getIncomesModel());
     dbManager.clearExpenses();
     dbManager.clearIncomes();
+
+    ui->stackedWidget->setCurrentWidget(widget_home);
 }
 
 dough::~dough()
@@ -120,4 +132,24 @@ void dough::updateIncomesView()
     } else {
         qDebug() << "tableView_incomes is nullptr";
     }
+}
+
+void dough::showHomePage()
+{
+    ui->stackedWidget->setCurrentWidget(widget_home);
+}
+
+void dough::showExpensePage()
+{
+    ui->stackedWidget->setCurrentWidget(widget_expenses);
+}
+
+void dough::showIncomePage()
+{
+    ui->stackedWidget->setCurrentWidget(widget_incomes);
+}
+
+void dough::showReportPage()
+{
+    ui->stackedWidget->setCurrentWidget(widget_reports);
 }
